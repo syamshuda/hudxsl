@@ -1,0 +1,506 @@
+/* /assets/css/style.css */
+:root {
+    --shopee-orange: #EE4D2D;
+        --text-color: #333;
+            --bg-light: #f5f5f5;
+                --chat-sent: #EE4D2D; /* Warna untuk pesan terkirim */
+                    --chat-received: #ffffff; /* Warna untuk pesan diterima */
+                        --chat-received-border: #e9ecef;
+                        }
+
+                        body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                                background-color: var(--bg-light);
+                                    color: var(--text-color);
+                                        padding-top: 60px;
+                                            padding-bottom: 70px;
+                                            }
+                                            .header-nav {
+                                                background: var(--shopee-orange);
+                                                    padding: 8px 0;
+                                                        color: white;
+                                                            position: fixed;
+                                                                top: 0;
+                                                                    left: 0;
+                                                                        width: 100%;
+                                                                            z-index: 1000;
+                                                                            }
+                                                                            .navbar-container { display: none; }
+                                                                            .navbar-container-mobile { display: flex; align-items: center; padding: 0 10px; gap: 10px; }
+                                                                            .mobile-search-form { flex-grow: 1; background-color: white; border-radius: 4px; display: flex; align-items: center; padding: 5px 10px; }
+                                                                            .mobile-search-form input { border: none; outline: none; width: 100%; margin-left: 8px; font-size: 0.9rem; }
+                                                                            .mobile-nav-icons { display: flex; align-items: center; gap: 15px; }
+                                                                            .mobile-nav-icons a { position: relative; color: white; font-size: 1.6rem; text-decoration: none; }
+                                                                            .icon-badge-notif { position: absolute; top: -5px; right: -8px; background-color: white; color: var(--shopee-orange); font-size: 0.7rem; font-weight: bold; border-radius: 50%; padding: 2px 5px; line-height: 1; min-width: 18px; text-align: center; }
+                                                                            .main-container { padding: 15px; max-width: 1200px; margin: 0 auto; }
+                                                                            .promo-banner img { width: 100%; border-radius: 8px; margin-bottom: 15px; }
+                                                                            .icon-categories { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; background-color: white; padding: 15px; border-radius: 8px; text-align: center; font-size: 0.8rem; margin-bottom: 15px; }
+                                                                            .icon-item img { width: 45px; height: 45px; margin-bottom: 5px; }
+                                                                            .section-title { font-size: 1.2rem; font-weight: bold; margin-top: 20px; margin-bottom: 15px; }
+                                                                            .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+                                                                            .product-card { background-color: white; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-decoration: none; color: var(--text-color); display: flex; flex-direction: column; }
+                                                                            .product-card img { width: 100%; height: 180px; object-fit: cover; }
+                                                                            .product-info { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; }
+                                                                            .product-name { font-size: 0.9rem; line-height: 1.3; height: 48px; overflow: hidden; }
+                                                                            .product-price { font-size: 1.1rem; font-weight: bold; color: var(--shopee-orange); margin-top: auto; }
+                                                                            .mobile-nav-footer { display: flex; justify-content: space-around; position: fixed; bottom: 0; left: 0; width: 100%; background-color: white; padding: 8px 0; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); z-index: 1000; }
+                                                                            .mobile-nav-item { text-align: center; font-size: 0.7rem; color: var(--text-color); text-decoration: none; }
+                                                                            .mobile-nav-item span { font-size: 1.5rem; }
+                                                                            .profile-header { background: var(--shopee-orange); color: white; padding: 20px 15px; display: flex; align-items: center; border-radius: 4px; margin: -15px -15px 10px -15px; }
+                                                                            .profile-header .avatar { width: 60px; height: 60px; border-radius: 50%; background-color: white; color: var(--shopee-orange); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin-right: 15px; border: 2px solid white; }
+                                                                            .profile-header .user-info h5 { margin: 0; font-weight: bold; }
+                                                                            .profile-header .user-info p { margin: 0; opacity: 0.8; font-size: 0.9rem; }
+                                                                            .profile-section { background-color: white; padding: 15px; border-radius: 4px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+                                                                            .profile-section .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+                                                                            .profile-section .section-header h6 { margin: 0; font-weight: bold; }
+                                                                            .profile-section .section-header a { text-decoration: none; font-size: 0.9rem; color: #888; }
+
+                                                                            /* --- PERUBAHAN & TAMBAHAN CSS UNTUK CHAT --- */
+                                                                            /* Header Khusus Chat */
+                                                                            .chat-header {
+                                                                                background-color: #EE4D2D;
+                                                                                    color: white;
+                                                                                        padding: 10px 15px;
+                                                                                            position: fixed;
+                                                                                                top: 0;
+                                                                                                    left: 0;
+                                                                                                        width: 100%;
+                                                                                                            z-index: 1000;
+                                                                                                                display: flex;
+                                                                                                                    align-items: center;
+                                                                                                                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                                                                                                                        }
+                                                                                                                        .chat-header .back-button {
+                                                                                                                            font-size: 1.8rem;
+                                                                                                                                color: white;
+                                                                                                                                    text-decoration: none;
+                                                                                                                                        margin-right: 15px;
+                                                                                                                                        }
+                                                                                                                                        .chat-header .title {
+                                                                                                                                            font-size: 1.2rem;
+                                                                                                                                                font-weight: bold;
+                                                                                                                                                    margin: 0;
+                                                                                                                                                        flex-grow: 1;
+                                                                                                                                                        }
+                                                                                                                                                        .chat-header .search-bar {
+                                                                                                                                                            display: flex;
+                                                                                                                                                                align-items: center;
+                                                                                                                                                                    background-color: rgba(255, 255, 255, 0.2);
+                                                                                                                                                                        border-radius: 20px;
+                                                                                                                                                                            padding: 5px 10px;
+                                                                                                                                                                                width: 100%;
+                                                                                                                                                                                }
+                                                                                                                                                                                .chat-header .search-bar input {
+                                                                                                                                                                                    background: none;
+                                                                                                                                                                                        border: none;
+                                                                                                                                                                                            outline: none;
+                                                                                                                                                                                                color: white;
+                                                                                                                                                                                                    flex-grow: 1;
+                                                                                                                                                                                                        margin-left: 8px;
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                        .chat-header .search-bar input::placeholder {
+                                                                                                                                                                                                            color: rgba(255, 255, 255, 0.7);
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                            .chat-header .search-bar .bi {
+                                                                                                                                                                                                                font-size: 1rem;
+                                                                                                                                                                                                                    color: white;
+                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                    /* Daftar Percakapan */
+                                                                                                                                                                                                                    .conversation-list {
+                                                                                                                                                                                                                        background-color: white;
+                                                                                                                                                                                                                            margin-top: 60px;
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                            .conversation-item {
+                                                                                                                                                                                                                                display: flex;
+                                                                                                                                                                                                                                    align-items: center;
+                                                                                                                                                                                                                                        padding: 15px;
+                                                                                                                                                                                                                                            border-bottom: 1px solid #f0f0f0;
+                                                                                                                                                                                                                                                text-decoration: none;
+                                                                                                                                                                                                                                                    color: #333;
+                                                                                                                                                                                                                                                        position: relative;
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                        .conversation-item.active {
+                                                                                                                                                                                                                                                            background-color: #f8f8f8;
+                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                            .conversation-item:hover {
+                                                                                                                                                                                                                                                                background-color: #fafafa;
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                .conversation-item .avatar {
+                                                                                                                                                                                                                                                                    width: 50px;
+                                                                                                                                                                                                                                                                        height: 50px;
+                                                                                                                                                                                                                                                                            border-radius: 50%;
+                                                                                                                                                                                                                                                                                margin-right: 12px;
+                                                                                                                                                                                                                                                                                    object-fit: cover;
+                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                    .conversation-item .info {
+                                                                                                                                                                                                                                                                                        flex-grow: 1;
+                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                        .conversation-item .name {
+                                                                                                                                                                                                                                                                                            font-weight: bold;
+                                                                                                                                                                                                                                                                                                font-size: 0.9rem;
+                                                                                                                                                                                                                                                                                                    margin-bottom: 2px;
+                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                    .conversation-item .last-message {
+                                                                                                                                                                                                                                                                                                        color: #888;
+                                                                                                                                                                                                                                                                                                            font-size: 0.8rem;
+                                                                                                                                                                                                                                                                                                                overflow: hidden;
+                                                                                                                                                                                                                                                                                                                    white-space: nowrap;
+                                                                                                                                                                                                                                                                                                                        text-overflow: ellipsis;
+                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                        .conversation-item .time {
+                                                                                                                                                                                                                                                                                                                            font-size: 0.75rem;
+                                                                                                                                                                                                                                                                                                                                color: #888;
+                                                                                                                                                                                                                                                                                                                                    white-space: nowrap;
+                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                    .conversation-item .unread-badge {
+                                                                                                                                                                                                                                                                                                                                        position: absolute;
+                                                                                                                                                                                                                                                                                                                                            top: 50%;
+                                                                                                                                                                                                                                                                                                                                                right: 15px;
+                                                                                                                                                                                                                                                                                                                                                    transform: translateY(-50%);
+                                                                                                                                                                                                                                                                                                                                                        background-color: #EE4D2D;
+                                                                                                                                                                                                                                                                                                                                                            color: white;
+                                                                                                                                                                                                                                                                                                                                                                border-radius: 50%;
+                                                                                                                                                                                                                                                                                                                                                                    width: 20px;
+                                                                                                                                                                                                                                                                                                                                                                        height: 20px;
+                                                                                                                                                                                                                                                                                                                                                                            display: flex;
+                                                                                                                                                                                                                                                                                                                                                                                align-items: center;
+                                                                                                                                                                                                                                                                                                                                                                                    justify-content: center;
+                                                                                                                                                                                                                                                                                                                                                                                        font-size: 0.7rem;
+                                                                                                                                                                                                                                                                                                                                                                                            font-weight: bold;
+                                                                                                                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                                                                                                            /* Tampilan Chat Privat */
+                                                                                                                                                                                                                                                                                                                                                                                            .private-chat-container {
+                                                                                                                                                                                                                                                                                                                                                                                                padding-top: 60px;
+                                                                                                                                                                                                                                                                                                                                                                                                    background-color: #f0f2f5;
+                                                                                                                                                                                                                                                                                                                                                                                                        min-height: 100vh;
+                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                        .chat-bubble-sent {
+                                                                                                                                                                                                                                                                                                                                                                                                            background-color: #e2f8ff; /* Warna pesan terkirim */
+                                                                                                                                                                                                                                                                                                                                                                                                                color: #333;
+                                                                                                                                                                                                                                                                                                                                                                                                                    border-radius: 15px 15px 0 15px;
+                                                                                                                                                                                                                                                                                                                                                                                                                        padding: 10px 12px;
+                                                                                                                                                                                                                                                                                                                                                                                                                            max-width: 70%;
+                                                                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                                                                            .chat-bubble-received {
+                                                                                                                                                                                                                                                                                                                                                                                                                                background-color: white; /* Warna pesan diterima */
+                                                                                                                                                                                                                                                                                                                                                                                                                                    color: #333;
+                                                                                                                                                                                                                                                                                                                                                                                                                                        border-radius: 15px 15px 15px 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                            padding: 10px 12px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                max-width: 70%;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                .chat-timestamp-centered {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    text-align: center;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        color: #888;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            font-size: 0.8rem;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                margin: 15px 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                /* Footer Input Chat */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                .chat-input-footer {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    position: fixed;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        bottom: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            left: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                width: 100%;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    background-color: white;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        padding: 10px 15px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                display: flex;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    align-items: center;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        gap: 10px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .chat-input-footer .input-group {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            flex-grow: 1;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                border-radius: 50px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    overflow: hidden;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        border: 1px solid #e0e0e0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .chat-input-footer .input-group-text {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            background-color: white;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                border: none;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .chat-input-footer .form-control {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border: none;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        padding: 8px 12px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .chat-input-footer .send-button {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            background-color: #EE4D2D;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                color: white;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    border: none;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        border-radius: 50%;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            width: 40px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                height: 40px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    display: flex;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        align-items: center;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            justify-content: center;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                font-size: 1.2rem;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @media (min-width: 768px) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    body { padding-top: 70px; padding-bottom: 0; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .mobile-nav-footer, .navbar-container-mobile { display: none; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .navbar-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .nav-logo { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .nav-search-desktop { display: block; width: 50%; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .nav-search-desktop input { width: 100%; padding: 8px 12px; border: none; border-radius: 4px; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .nav-user-desktop { display: flex; align-items: center; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .nav-user-desktop a { color: white; text-decoration: none; margin-left: 15px; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .nav-user-desktop a.btn { background-color: white; color: var(--shopee-orange); padding: 5px 15px; border-radius: 4px; }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        .icon-categories { grid-template-columns: repeat(10, 1fr); }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .product-grid { grid-template-columns: repeat(6, 1fr); }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .profile-header { margin: 0 0 15px 0; }
+                                                                                                                                                                                                                                                                                                                                             /* =================================
+   STYLE UNTUK FOOTER BARU
+==================================== */
+
+/* --- Footer Utama (Desktop) --- */
+.main-footer {
+    background-color: #f8f9fa; /* Warna latar belakang abu-abu muda */
+    border-top: 1px solid #e7e7e7;
+    color: #555;
+    display: none; /* Sembunyikan di mobile secara default */
+}
+
+.main-footer h5 {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.main-footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+.main-footer a {
+    text-decoration: none;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.main-footer a:hover {
+    color: #007bff; /* Warna biru saat disentuh */
+}
+
+.social-icon {
+    font-size: 1.5rem; /* Ukuran ikon sosial media */
+    margin-right: 1rem;
+}
+
+.social-icon i {
+    transition: transform 0.2s;
+}
+
+.social-icon:hover i {
+    transform: scale(1.2);
+}
+
+/* --- Pengaturan Responsif --- */
+
+/* Tampilkan footer utama dan sembunyikan navigasi mobile di layar besar (Tablet & Desktop) */
+@media (min-width: 768px) {
+    .main-footer {
+        display: block; /* Tampilkan footer utama */
+    }
+    .mobile-nav-footer {
+        display: none; /* Sembunyikan navigasi mobile */
+    }
+                                                                                                                                                                      }                                                                                                         
+/* =================================
+   STYLE UNTUK FOOTER BARU
+==================================== */
+
+/* --- Footer Utama (Desktop) --- */
+.main-footer {
+    background-color: #f8f9fa; /* Warna latar belakang abu-abu muda */
+    border-top: 1px solid #e7e7e7;
+    color: #555;
+    display: none; /* Sembunyikan di mobile secara default */
+}
+
+.main-footer h5 {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.main-footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+.main-footer a {
+    text-decoration: none;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.main-footer a:hover {
+    color: #007bff; /* Warna biru saat disentuh */
+}
+
+.social-icon {
+    font-size: 1.5rem; /* Ukuran ikon sosial media */
+    margin-right: 1rem;
+}
+
+.social-icon i {
+    transition: transform 0.2s;
+}
+
+.social-icon:hover i {
+    transform: scale(1.2);
+}
+
+/* --- Style untuk Copyright di Footer --- */
+.copyright-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.copyright-logo {
+    height: 30px !important; /* !important untuk memaksa style diterapkan */
+    width: auto !important;
+    margin: 0 5px; /* Memberi sedikit jarak di kiri dan kanan setiap logo */
+}
+
+
+/* --- Pengaturan Responsif --- */
+
+/* Tampilkan footer utama dan sembunyikan navigasi mobile di layar besar (Tablet & Desktop) */
+@media (min-width: 768px) {
+    .main-footer {
+        display: block; /* Tampilkan footer utama */
+    }
+    .mobile-nav-footer {
+        display: none; /* Sembunyikan navigasi mobile */
+    }
+}
+
+/* =================================
+   STYLE UNTUK HALAMAN PROFIL SAYA
+   ==================================== */
+
+   .profile-section {
+       background-color: #ffffff;
+           border-radius: 0.5rem;
+               padding: 1rem;
+                   margin-bottom: 1rem;
+                       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+                       }
+
+                       .section-header {
+                           display: flex;
+                               justify-content: space-between;
+                                   align-items: center;
+                                       margin-bottom: 1.25rem;
+                                           padding-bottom: 0.75rem;
+                                               border-bottom: 1px solid #f0f0f0;
+                                               }
+
+                                               .section-header h6 {
+                                                   margin: 0;
+                                                       font-weight: bold;
+                                                           font-size: 1rem;
+                                                           }
+
+                                                           .section-header a {
+                                                               font-size: 0.9em;
+                                                                   text-decoration: none;
+                                                                       color: #6c757d;
+                                                                       }
+
+                                                                       .icon-grid {
+                                                                           display: flex;
+                                                                               justify-content: space-around;
+                                                                                   text-align: center;
+                                                                                   }
+
+                                                                                   .icon-item {
+                                                                                       text-decoration: none;
+                                                                                           color: #333;
+                                                                                               display: flex;
+                                                                                                   flex-direction: column;
+                                                                                                       align-items: center;
+                                                                                                           position: relative;
+                                                                                                               padding: 0 5px;
+                                                                                                               }
+
+                                                                                                               .icon-item .icon-display {
+                                                                                                                   font-size: 1.8rem;
+                                                                                                                       margin-bottom: 0.25rem;
+                                                                                                                       }
+
+                                                                                                                       .icon-item span {
+                                                                                                                           font-size: 0.8rem;
+                                                                                                                           }
+
+                                                                                                                           .icon-badge {
+                                                                                                                               position: absolute;
+                                                                                                                                   top: -8px;
+                                                                                                                                       right: -5px;
+                                                                                                                                           background-color: #EE4D2D;
+                                                                                                                                               color: white;
+                                                                                                                                                   border-radius: 50%;
+                                                                                                                                                       min-width: 20px;
+                                                                                                                                                           height: 20px;
+                                                                                                                                                               font-size: 0.75rem;
+                                                                                                                                                                   font-weight: bold;
+                                                                                                                                                                       display: flex;
+                                                                                                                                                                           align-items: center;
+                                                                                                                                                                               justify-content: center;
+                                                                                                                                                                                   border: 2px solid white;
+                                                                              
+                                                                                                     }
+
+.store-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.store-info {
+    display: flex;
+    align-items: center;
+}
+
+.store-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #e0e0e0;
+    margin-right: 1rem;
+}
+
+.store-details h4 {
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+}
+
+.store-details p {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.store-actions .btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
+.voucher-card {
+    border: 1px dashed #e0e0e0;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.voucher-card h6 {
+    color: #EE4D2D;
+    font-weight: bold;
+}
