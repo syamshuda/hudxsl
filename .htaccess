@@ -1,0 +1,37 @@
+# Mengaktifkan Mod_Rewrite
+RewriteEngine On
+RewriteBase /
+
+# ----------------------------------------------------------------------
+# KEAMANAN DASAR
+# ----------------------------------------------------------------------
+
+# Mencegah akses langsung ke file .htaccess ini
+<Files .htaccess>
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Mencegah akses ke file konfigurasi
+<FilesMatch "^(database\.php|midtrans\.php)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Menonaktifkan listing direktori
+Options -Indexes
+
+# ----------------------------------------------------------------------
+# URL CANTIK (Menyembunyikan .php)
+# ----------------------------------------------------------------------
+
+# Arahkan permintaan ke file .php jika ada (dan bukan direktori)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Redirect dari namafile.php ke namafile JIKA BUKAN REQUEST POST
+# BARIS INI ADALAH KUNCI PERBAIKANNYA:
+RewriteCond %{REQUEST_METHOD} !POST
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]

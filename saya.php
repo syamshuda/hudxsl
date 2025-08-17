@@ -1,0 +1,212 @@
+<?php
+// /saya.php (Versi Final dengan Perbaikan Tampilan & Fitur Lengkap)
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+require_once 'config/database.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /auth/login.php");
+    exit();
+}
+
+$page_title = "Profil Saya";
+require_once 'includes/header.php';
+
+$user_id = $_SESSION['user_id'];
+$user_role = $_SESSION['role'];
+$username = $_SESSION['username'];
+
+// Ambil data pengguna, termasuk saldo dan foto profil
+$stmt_user = $koneksi->prepare("SELECT nama_lengkap, foto_profil, saldo FROM users WHERE id = ?");
+$stmt_user->bind_param("i", $user_id);
+$stmt_user->execute();
+$user_data = $stmt_user->get_result()->fetch_assoc();
+$stmt_user->close();
+
+$foto_profil_path = !empty($user_data['foto_profil']) 
+    ? '/uploads/profil/' . htmlspecialchars($user_data['foto_profil']) 
+    : 'https://ui-avatars.com/api/?name=' . urlencode($user_data['nama_lengkap']) . '&background=FFFFFF&color=ee4d2d&font-size=0.5';
+
+// Menghitung jumlah pesanan untuk setiap status
+$statuses = ['menunggu_pembayaran', 'pending', 'diproses', 'dikirim', 'selesai'];
+$counts = array_fill_keys($statuses, 0);
+
+foreach ($statuses as $status) {
+    $stmt_pesanan = $koneksi->prepare("SELECT COUNT(id) as total FROM pesanan WHERE pembeli_id = ? AND status_pesanan = ?");
+    $stmt_pesanan->bind_param("is", $user_id, $status);
+    $stmt_pesanan->execute();
+    $result_pesanan = $stmt_pesanan->get_result()->fetch_assoc();
+    $counts[$status] = $result_pesanan['total'];
+    $stmt_pesanan->close();
+}
+?>
+
+<style>
+    /* CSS YANG DIKEMBALIKAN UNTUK MEMPERBAIKI TATA LETAK */
+    .profile-header-new {
+        background-color: #EE4D2D;
+        color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+    .profile-header-new .avatar {
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+        margin-right: 15px;
+    }
+    .profile-header-new .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .profile-header-new .user-info {
+        flex-grow: 1;
+    }
+    .profile-header-new .user-info h5,
+    .profile-header-new .user-info p {
+        color: white;
+        margin-bottom: 0;
+    }
+    .profile-section {
+        background-color: #ffffff;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .section-header h6 {
+        margin: 0;
+        font-weight: bold;
+        font-size: 1rem;
+    }
+    .section-header a {
+        font-size: 0.9em;
+        text-decoration: none;
+        color: #6c757d;
+    }
+    .icon-grid {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+    }
+    .icon-item {
+        text-decoration: none;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        padding: 0 5px;
+    }
+    .icon-item .icon-display {
+        font-size: 1.8rem;
+        margin-bottom: 0.25rem;
+    }
+    .icon-item span {
+        font-size: 0.8rem;
+    }
+    .icon-badge {
+        position: absolute;
+        top: -8px;
+        right: -5px;
+        background-color: #EE4D2D;
+        color: white;
+        border-radius: 50%;
+        min-width: 20px;
+        height: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+    }
+</style>
+
+<div class="profile-header-new mb-3">
+    <div class="avatar">
+        <img src="<?php echo $foto_profil_path; ?>" class="rounded-circle" alt="Avatar">
+    </div>
+    <div class="user-info">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold"><?php echo htmlspecialchars($username); ?></h5>
+            <a href="/profil_saya.php" class="text-white fs-4 text-decoration-none">
+                <i class="bi bi-gear-fill"></i>
+            </a>
+        </div>
+        <p>Selamat datang di <?php echo htmlspecialchars($nama_website); ?>!</p>
+    </div>
+</div>
+
+<div class="profile-section">
+    <div class="section-header">
+        <h6>Dompet Saya</h6>
+    </div>
+    <div class="list-group list-group-flush">
+        <a href="saldo_saya.php" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-wallet2 me-2"></i> Saldo Saya</span>
+            <span class="fw-bold text-success">Rp <?php echo number_format($user_data['saldo'], 2, ',', '.'); ?></span>
+        </a>
+    </div>
+</div>
+
+<?php if ($user_role == 'penjual'): ?>
+    <div class="d-grid mb-3">
+        <a href="/penjual/index.php" class="btn btn-light border fw-bold py-2">Toko Saya ></a>
+    </div>
+<?php endif; ?>
+
+<div class="profile-section">
+    <div class="section-header">
+        <h6>Pesanan Saya</h6>
+        <a href="/pesanan_saya.php">Lihat Riwayat Pesanan ></a>
+    </div>
+    <div class="icon-grid">
+        <a href="/pesanan_saya.php?status=menunggu_pembayaran" class="icon-item">
+            <span class="icon-display">💳</span>
+            <span>Belum Bayar</span>
+            <?php if ($counts['menunggu_pembayaran'] > 0) echo '<span class="icon-badge">' . $counts['menunggu_pembayaran'] . '</span>'; ?>
+        </a>
+        <a href="/pesanan_saya.php?status=pending" class="icon-item">
+            <span class="icon-display">⌛</span>
+            <span>Konfirmasi</span>
+            <?php if ($counts['pending'] > 0) echo '<span class="icon-badge">' . $counts['pending'] . '</span>'; ?>
+        </a>
+        <a href="/pesanan_saya.php?status=diproses" class="icon-item">
+            <span class="icon-display">📦</span>
+            <span>Dikemas</span>
+            <?php if ($counts['diproses'] > 0) echo '<span class="icon-badge">' . $counts['diproses'] . '</span>'; ?>
+        </a>
+        <a href="/pesanan_saya.php?status=dikirim" class="icon-item">
+            <span class="icon-display">🚚</span>
+            <span>Dikirim</span>
+            <?php if ($counts['dikirim'] > 0) echo '<span class="icon-badge">' . $counts['dikirim'] . '</span>'; ?>
+        </a>
+        <a href="/pesanan_saya.php?status=selesai" class="icon-item">
+            <span class="icon-display">⭐</span>
+            <span>Beri Nilai</span>
+            <?php if ($counts['selesai'] > 0) echo '<span class="icon-badge">' . $counts['selesai'] . '</span>'; ?>
+        </a>
+    </div>
+</div>
+
+<div class="d-grid mt-4">
+    <a href="/auth/logout.php" class="btn btn-outline-danger">Logout</a>
+</div>
+
+<?php 
+require_once 'includes/footer.php'; 
+?>

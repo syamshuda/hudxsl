@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Melarang Google mengakses direktori sensitif
+Disallow: /admin/
+Disallow: /penjual/
+Disallow: /auth/
+Disallow: /config/
+Disallow: /includes/
+
+# Melarang Google mengakses file proses backend
+Disallow: /proses_checkout.php
+Disallow: /proses_login.php
+Disallow: /proses_register.php
+Disallow: /api_keranjang.php
+
+# Lokasi Sitemap Anda
+Sitemap: https://sabaku.shop/sitemap.xml
